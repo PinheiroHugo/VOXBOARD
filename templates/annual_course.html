@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VOXBOARD · {{ course.name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">{% include '_security_head.html' %}
+</head><body>{% include '_account_menu.html' %}<main>
+  <a href="{{ url_for('index') }}">← Volver al pizarrón</a>
+  <h1>{{ course.name }}</h1><p>Gestión {{ course.school_year }} · {{ course.teacher }}</p>
+  {% if request.args.get('saved') %}<p class="success" role="status">Curso y estudiantes guardados.</p>{% endif %}
+  {% if is_active %}
+  <p class="badge">Curso anual activo</p>
+  <div class="annual-actions">
+    <a class="button-link" href="{{ url_for('annual.daily', seccion='asistencia') }}">Asistencia</a>
+    <a class="button-link" href="{{ url_for('annual.daily', seccion='calificaciones') }}">Calificaciones</a>
+    <a class="button-link" href="{{ url_for('annual.daily', seccion='pizarra') }}">Pizarra y resumen</a>
+    <a class="button-link" href="{{ url_for('annual.daily', seccion='trivia') }}">Trivia del día</a>
+    <a href="{{ url_for('annual.configure', course_id=course.id) }}">Configurar curso y estudiantes</a>
+  </div>
+  {% else %}<p class="intro">Gestión anterior: consulta del historial. El trabajo diario usa el curso activo.</p>{% endif %}
+  <h2 id="estudiantes">Estudiantes del curso</h2>
+  <div class="table-container"><table><thead><tr><th>ID</th><th>Nombres</th><th>Apellidos</th></tr></thead>
+    <tbody>{% for student in students %}<tr><td>{{ student.id }}</td><td>{{ student.first_name }}</td><td>{{ student.last_name }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <h2>Seguimiento</h2>
+  <p><a href="{{ url_for('performance.overview', course_id=course.id) }}">Rendimiento y cuadro de honor</a> · <a href="{{ url_for('comments.editor', course_id=course.id) }}">Comentarios de boletín</a></p>
+  <h2 id="historial">Historial por fecha</h2>
+  <ul>{% for record in records %}<li><a href="{{ url_for('session_detail', session_id=record.id) }}">{{ record.class_date }} · Registro {{ record.id }}</a></li>{% else %}<li>Todavía no hay registros.</li>{% endfor %}</ul>
+  <p><a href="{{ url_for('annual.history') }}">Gestiones anteriores</a> · <a href="{{ url_for('annual.configure') }}">Iniciar nueva gestión</a></p>
+</main></body></html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · Borrador de trivia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='4a-1') }}">
+    <script src="{{ url_for('static', filename='trivia.js') }}" defer></script>
+    {% include '_security_head.html' %}
+  </head>
+  <body>
+    {% include '_account_menu.html' %}
+    <main>
+      <a href="{{ url_for('session_detail', session_id=session.id) }}">← Volver a la sesión</a>
+      <h1>Trivia · Sesión {{ session.id }}</h1>
+      <p>Borrador para revisar. Comprobá que cada respuesta correcta se justifique con el resumen antes de proyectar.</p>
+      {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+      {% if saved == 'generate' %}<p class="success" role="status">Borrador generado y guardado. Revisá y editá las cinco preguntas.</p>{% elif saved == 'save' %}<p class="success" role="status">Trivia guardada correctamente.</p>{% endif %}
+      {% if not summary.strip() %}<p class="error">Primero completá y guardá el resumen en <a href="{{ url_for('board', session_id=session.id) }}">la pizarra de esta sesión</a>.</p>{% endif %}
+      <details><summary>Resumen guardado de la sesión</summary><p class="summary-text">{{ summary or 'Sin resumen.' }}</p></details>
+      <form method="post" id="trivia-form">
+          {% include '_csrf.html' %}
+        <p>Generar crea un nuevo borrador a partir del resumen y reemplaza la trivia si la generación es válida.</p>
+        <button type="submit" name="action" value="generate" formnovalidate>Generar trivia</button>
+        <p id="generation-status" role="status" hidden>Generando con Ollama local… Esperá, puede tardar hasta el tiempo límite configurado.</p>
+        {% for question in draft.preguntas %}
+        {% set i = loop.index0 %}
+        <fieldset class="trivia-question">
+          <legend>Pregunta {{ loop.index }}</legend>
+          <label for="q{{ i }}">Enunciado</label>
+          <textarea id="q{{ i }}" name="q{{ i }}" rows="2" maxlength="1000" required>{{ question.enunciado }}</textarea>
+          {% for option in question.opciones %}
+          {% set letter = 'ABC'[loop.index0] %}
+          <label for="q{{ i }}_{{ letter }}">Opción {{ letter }}</label>
+          <input id="q{{ i }}_{{ letter }}" name="q{{ i }}_{{ letter }}" value="{{ option }}" maxlength="300" required>
+          {% endfor %}
+          <label for="correct{{ i }}">Respuesta correcta (solo docente)</label>
+          <select id="correct{{ i }}" name="correct{{ i }}" required>
+            {% for letter in 'ABC' %}<option value="{{ letter }}" {% if question.correcta == letter %}selected{% endif %}>{{ letter }}</option>{% endfor %}
+          </select>
+        </fieldset>
+        {% endfor %}
+        <button type="submit" name="action" value="save">Guardar trivia</button>
+      </form>
+      {% if has_saved %}<p><a class="button-link" href="{{ url_for('trivia.project', session_id=session.id) }}">Proyectar trivia guardada</a></p><p>La proyección muestra la última versión guardada, sin la clave.</p>{% endif %}
+    </main>
+  </body>
+</html>

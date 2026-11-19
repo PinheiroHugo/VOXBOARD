@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · Trivia para el aula</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='4a-1') }}">
+    {% include '_security_head.html' %}
+  </head>
+  <body>
+    {% include '_account_menu.html' %}
+    <main class="trivia-projection">
+      <a href="{{ url_for('session_detail', session_id=session.id) }}">← Volver a la sesión</a>
+      <h1>Trivia del día</h1>
+      <p>Sesión {{ session.id }} · Elegí A, B o C para cada pregunta.</p>
+      {% for question in questions %}
+      <section class="projected-question" aria-labelledby="question-{{ loop.index }}">
+        <h2 id="question-{{ loop.index }}">{{ loop.index }}. {{ question.enunciado }}</h2>
+        <ol type="A">{% for option in question.opciones %}<li>{{ option }}</li>{% endfor %}</ol>
+      </section>
+      {% endfor %}
+    </main>
+  </body>
+</html>

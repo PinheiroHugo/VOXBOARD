@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Cadena alimentaria</title><desc id="desc">La hierba recibe energía del Sol. El saltamontes come hierba, la rana come al saltamontes y la serpiente come a la rana. Las flechas indican hacia dónde pasa la energía.</desc>
+  <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5 0 7" fill="#9b660d"/></marker></defs>
+  <rect width="1200" height="620" rx="20" fill="#f7f9ed"/>
+  <circle cx="110" cy="160" r="52" fill="#f6c443"/>
+  <g fill="none" stroke="#9b660d" stroke-width="6" marker-end="url(#arrow)"><path d="M170 180L245 260"/><path d="M365 310H465"/><path d="M650 310H750"/><path d="M930 310H1010"/></g>
+  <g fill="#5a9d49"><path d="M250 390Q200 310 245 230L278 390Q265 270 300 210L305 390Q320 290 350 260L330 390Z"/></g>
+  <g stroke="#487a2d" stroke-width="7" fill="none"><path d="M510 330L490 370 545 370M555 330L590 375 625 375M560 300L600 260 630 300"/></g>
+  <ellipse cx="550" cy="315" rx="65" ry="28" fill="#8bbd4b"/><circle cx="605" cy="302" r="24" fill="#8bbd4b"/><circle cx="614" cy="295" r="5" fill="#243e2e"/><path d="M609 281L625 250" stroke="#487a2d" stroke-width="4"/>
+  <g fill="#569d57"><ellipse cx="835" cy="345" rx="67" ry="40"/><ellipse cx="805" cy="375" rx="42" ry="18"/><ellipse cx="880" cy="375" rx="42" ry="18"/><ellipse cx="850" cy="300" rx="55" ry="39"/></g><g fill="white"><circle cx="825" cy="275" r="17"/><circle cx="872" cy="275" r="17"/></g><g fill="#243e2e"><circle cx="827" cy="275" r="7"/><circle cx="874" cy="275" r="7"/></g><path d="M830 314Q850 330 875 312" fill="none" stroke="#243e2e" stroke-width="4"/>
+  <path d="M1040 390Q1150 400 1120 350T1080 285Q1060 250 1125 250" fill="none" stroke="#b18c4b" stroke-width="26" stroke-linecap="round"/><ellipse cx="1130" cy="250" rx="27" ry="18" fill="#b18c4b"/><circle cx="1138" cy="244" r="4" fill="#243e2e"/>
+  <g fill="#344b28" font-family="Segoe UI, sans-serif" text-anchor="middle" font-size="29" font-weight="600"><text x="110" y="85">Sol</text><text x="285" y="445">Hierba</text><text x="555" y="445">Saltamontes</text><text x="845" y="445">Rana</text><text x="1085" y="445">Serpiente</text></g>
+  <g fill="#344b28" font-family="Segoe UI, sans-serif" text-anchor="middle" font-size="26"><text x="285" y="485">Productor</text><text x="820" y="485">Consumidores</text><text x="600" y="565">Las flechas muestran hacia dónde pasa la energía.</text></g>
+</svg>

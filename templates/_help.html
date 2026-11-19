@@ -1,0 +1,8 @@
+{% if help_url %}
+<a class="help-link" href="{{ help_url }}" target="_blank" rel="noopener noreferrer">Ayuda<span class="sr-only"> (se abre en una nueva pestaña)</span></a>
+{% else %}
+<details class="help-notice">
+  <summary>Ayuda</summary>
+  <p>El centro de ayuda estará disponible próximamente.</p>
+</details>
+{% endif %}

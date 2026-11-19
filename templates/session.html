@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · Registro del curso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='audio-wav.js', v='3a-3') }}" defer></script>
+    <script src="{{ url_for('static', filename='school-voice.js', v='3c-1') }}" defer></script>
+    <script src="{{ url_for('static', filename='voice.js', v='remote-1') }}" defer></script>
+    {% include '_security_head.html' %}
+  </head>
+  <body>
+    {% include '_account_menu.html' %}
+    <header><strong>VOXBOARD</strong><span>Tu aula, más cerca</span></header>
+    <main>
+      <a href="{{ url_for('index') }}">← Volver al curso</a>
+      <h1>{{ session.course_name }}</h1>
+      <p>Registro de asistencia y calificaciones · {{ session.class_date }}</p>
+      <p>Fecha: {{ session.class_date[8:10] }}/{{ session.class_date[5:7] }}/{{ session.class_date[:4] }}</p>
+      {% if read_only %}<p class="intro">Gestión anterior: consulta del historial. Estos registros se conservan sin modificaciones.</p>
+      {% else %}
+      <form method="get" action="{{ url_for('annual.daily') }}" class="session-form">
+        <label for="record-date">Fecha del registro</label><input id="record-date" name="fecha" type="date" value="{{ session.class_date }}" required>
+        <button type="submit">Consultar o corregir esta fecha</button>
+      </form><p>Una fecha diferente conserva su propio registro. Las notas corresponden a la fecha indicada.</p>
+      {% endif %}
+      <p><a class="button-link" href="{{ url_for('board', session_id=session.id) }}">Abrir pizarra</a></p>
+      <p><a class="button-link" href="{{ url_for('trivia.editor', session_id=session.id) }}">Generar trivia</a></p>
+      <fieldset class="record-editor" {% if read_only %}disabled{% endif %}>
+      <section class="voice-panel" aria-labelledby="voice-title" data-status-url="{{ url_for('voice.status') }}" data-transcribe-url="{{ url_for('voice.transcribe') }}" data-worklet-url="{{ url_for('static', filename='recorder-worklet.js') }}" data-preview-url="{{ url_for('school_preview', session_id=session.id) }}" data-confirm-url="{{ url_for('school_confirm', session_id=session.id) }}">
+        <h2 id="voice-title">Asistencia y notas por voz</h2>
+        <p>Usá el identificador del estudiante: «marcar ausente al estudiante uno», «marcar presente al estudiante 1» o «registrar nota ochenta y cinco al estudiante uno».</p>
+        <p>Revisá la vista previa y pulsá Confirmar para guardar. Cancelar conserva el dato anterior.</p>
+        <button id="record-start" type="button" disabled>Grabar frase</button>
+        <button id="record-stop" type="button" disabled>Detener y transcribir</button>
+        <p id="voice-status" role="status" aria-live="polite">Cargando el grabador…</p>
+        <p><strong>Texto reconocido:</strong></p>
+        <p id="voice-text" class="transcript" aria-live="polite">Todavía no hay una transcripción.</p>
+        <div id="school-preview" class="command-feedback" hidden>
+          <p id="preview-description" role="status" aria-live="polite"></p>
+          <button id="confirm-command" type="button">Confirmar</button>
+          <button id="cancel-command" type="button">Cancelar</button>
+        </div>
+        <p id="school-command-status" role="status" aria-live="polite"></p>
+      </section>
+      <h2 id="asistencia">Asistencia</h2>
+      {% if saved %}<p class="success" role="status">Asistencia guardada correctamente.</p>{% endif %}
+      <p class="intro">Marcá Presente o Ausente para cada estudiante. Podés guardar aunque queden estudiantes sin marcar.</p>
+      <form method="post" action="{{ url_for('session_detail', session_id=session.id) }}">
+          {% include '_csrf.html' %}
+        <div class="table-container">
+          <table>
+            <thead><tr><th scope="col">Estudiante</th><th scope="col">Asistencia</th></tr></thead>
+            <tbody>
+              {% for student in students %}
+              <tr>
+                <th scope="row">{{ student.first_name }} {{ student.last_name }} <small>(ID: {{ student.id }})</small></th>
+                <td>
+                  <fieldset class="attendance-options">
+                    <legend class="sr-only">Asistencia de {{ student.first_name }} {{ student.last_name }}</legend>
+                    <label><input type="radio" name="status_{{ student.id }}" value="presente" {% if student.status == 'presente' %}checked{% endif %}> Presente</label>
+                    <label><input type="radio" name="status_{{ student.id }}" value="ausente" {% if student.status == 'ausente' %}checked{% endif %}> Ausente</label>
+                  </fieldset>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <button class="save" type="submit">Guardar asistencia</button>
+      </form>
+      <section class="grades" id="calificaciones" aria-labelledby="grades-title">
+        <h2 id="grades-title">Calificaciones</h2>
+        {% if grades_saved %}<p class="success" role="status">Calificaciones guardadas correctamente.</p>{% endif %}
+        {% if grade_errors %}<p class="error" role="alert">No se guardó ninguna calificación. Revisá los campos indicados.</p>{% endif %}
+        <p class="intro">Ingresá notas enteras de 0 a 100. Un campo vacío indica que el estudiante no tiene calificación. Para borrar una nota, vaciá el campo y guardá.</p>
+        <form method="post" action="{{ url_for('session_detail', session_id=session.id) }}">
+          {% include '_csrf.html' %}
+          <input type="hidden" name="form_type" value="grades">
+          <div class="table-container">
+            <table>
+              <thead><tr><th scope="col">Estudiante</th><th scope="col">Nota (0–100)</th></tr></thead>
+              <tbody>
+                {% for student in students %}
+                <tr>
+                  <th scope="row"><label for="grade-{{ student.id }}">{{ student.first_name }} {{ student.last_name }} <small>(ID: {{ student.id }})</small></label></th>
+                  <td>
+                    <input id="grade-{{ student.id }}" name="grade_{{ student.id }}" type="number" min="0" max="100" step="1" value="{{ grade_values[student.id] }}" {% if student.id in grade_errors %}aria-invalid="true" aria-describedby="grade-error-{{ student.id }}"{% endif %}>
+                    {% if student.id in grade_errors %}<p class="field-error" id="grade-error-{{ student.id }}">{{ grade_errors[student.id] }}</p>{% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <button class="save" type="submit">Guardar calificaciones</button>
+        </form>
+      </section>
+      </fieldset>
+    </main>
+  </body>
+</html>

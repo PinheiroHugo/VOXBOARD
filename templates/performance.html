@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · Rendimiento del curso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% include '_security_head.html' %}
+  </head>
+  <body>
+    {% include '_account_menu.html' %}
+    <main>
+      <a href="{{ url_for('index') }}">← Volver al curso</a>
+      <h1>Rendimiento del curso</h1>
+      <p>{{ course.name }} · {{ sessions }} sesiones registradas</p>
+      <p><a class="button-link" href="{{ url_for('performance.download_excel', course_id=course.id) }}">Descargar Excel (.xlsx)</a> <a href="{{ url_for('performance.download_csv', course_id=course.id) }}">Descargar CSV</a></p>
+      <p>Se consideran todas las sesiones del curso. El promedio incluye las notas de 0 y excluye las pendientes.</p>
+      <p>Asistencia = presentes / (presentes + ausentes) × 100. Los registros pendientes no se cuentan como ausencias.</p>
+      {% if not sessions %}<p class="intro">Todavía no hay sesiones registradas en este curso.</p>{% endif %}
+      <section aria-labelledby="indicators-title">
+        <h2 id="indicators-title">Indicadores por estudiante</h2>
+        <div class="table-container">
+          <table>
+            <thead><tr>
+              <th scope="col">Estudiante</th><th scope="col">Promedio</th><th scope="col">Cantidad de notas</th>
+              <th scope="col">Presentes</th><th scope="col">Ausentes</th><th scope="col">Asistencia</th>
+            </tr></thead>
+            <tbody>
+              {% for row in rows %}
+              <tr>
+                <th scope="row">{{ row.first_name }} {{ row.last_name }}</th>
+                <td>{{ row.indicators.average if row.indicators.average is not none else 'Sin registros' }}</td>
+                <td>{{ row.indicators.grade_count }}</td>
+                <td>{{ row.indicators.present if row.indicators.present is not none else 'Sin registros' }}</td>
+                <td>{{ row.indicators.absent if row.indicators.absent is not none else 'Sin registros' }}</td>
+                <td>{% if row.indicators.attendance_percent is not none %}{{ row.indicators.attendance_percent }} %{% else %}Sin registros{% endif %}</td>
+              </tr>
+              {% else %}<tr><td colspan="6">No hay estudiantes en este curso.</td></tr>{% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="intro">La cantidad de notas es 0 cuando no hay ninguna registrada. Si no hay asistencia registrada, sus indicadores muestran «Sin registros».</p>
+      </section>
+      <section class="course" id="cuadro-de-honor" aria-labelledby="honor-title">
+        <h2 id="honor-title">Cuadro de honor</h2>
+        <p>Los tres mejores promedios distintos, calculados a dos decimales. Los empates comparten posición y se incluyen todos, también en el tercer puesto.</p>
+        {% if honor %}
+        <div class="table-container">
+          <table>
+            <thead><tr><th scope="col">Posición</th><th scope="col">Estudiante</th><th scope="col">Promedio</th></tr></thead>
+            <tbody>{% for row in honor %}<tr><td>{{ row.position }}</td><th scope="row">{{ row.first_name }} {{ row.last_name }}</th><td>{{ '%.2f' | format(row.average) }}</td></tr>{% endfor %}</tbody>
+          </table>
+        </div>
+        {% else %}<p>Sin registros de notas para formar el cuadro de honor.</p>{% endif %}
+      </section>
+    </main>
+  </body>
+</html>

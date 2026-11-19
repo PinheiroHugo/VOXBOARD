@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · Pizarra de Ciencias Naturales</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='3b-2') }}">
+    <script src="{{ url_for('static', filename='resource-commands.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='board.js', v='vox-home-1') }}" defer></script>
+    <script src="{{ url_for('static', filename='audio-wav.js', v='3a-3') }}" defer></script>
+    <script src="{{ url_for('static', filename='dictation.js', v='3c-1') }}" defer></script>
+    <script src="{{ url_for('static', filename='voice.js', v='remote-1') }}" defer onerror="document.getElementById('voice-status').textContent='No se pudo descargar el grabador desde Flask. Reiniciá el servidor y recargá la página.'"></script>
+    {% include '_security_head.html' %}
+  </head>
+  <body>
+    {% include '_account_menu.html' %}
+    <main class="board">
+      <div class="board-top">
+        <a href="{{ url_for('session_detail', session_id=session.id) }}">← Volver a la sesión</a>
+        <span>{{ session.course_name }} · Sesión {{ session.id }}</span>
+      </div>
+      <p class="eyebrow">VOXBOARD · CIENCIAS NATURALES</p>
+      <h1>Pizarra</h1>
+      <section class="voice-panel" aria-labelledby="voice-title" data-status-url="{{ url_for('voice.status') }}" data-transcribe-url="{{ url_for('voice.transcribe') }}" data-worklet-url="{{ url_for('static', filename='recorder-worklet.js') }}">
+        <h2 id="voice-title">Transcripción de voz</h2>
+        <label for="voice-mode">Modo</label>
+        <select id="voice-mode"><option value="commands">Comandos de pizarra</option><option value="dictation">Dictado</option></select>
+        <div class="avatar-row">
+          <div id="board-avatar" class="avatar" data-state="idle" aria-hidden="true"><div class="avatar-face"><span class="avatar-eye"></span><span class="avatar-eye"></span><span class="avatar-mouth"></span></div></div>
+          <p id="avatar-state" class="avatar-state" role="status" aria-live="polite">En espera</p>
+        </div>
+        <p>Grabá una frase de hasta 30 segundos. Para cambiar de recurso, decí «mostrar» y el nombre del botón. Por ejemplo: «mostrar ciclo del agua».</p>
+        <button id="record-start" type="button" disabled>Grabar frase</button>
+        <button id="record-stop" type="button" disabled>Detener y transcribir</button>
+        <p id="voice-status" role="status" aria-live="polite">Cargando el grabador… Si este mensaje no cambia, abrí la aplicación directamente en Chrome o Edge y recargá con Ctrl+F5.</p>
+        <p><strong>Texto reconocido:</strong></p>
+        <p id="voice-text" class="transcript" aria-live="polite">Todavía no hay una transcripción.</p>
+        <p id="command-feedback" class="command-feedback" role="status" aria-live="polite" hidden></p>
+      </section>
+      <section class="voice-panel" aria-labelledby="summary-title">
+        <h2 id="summary-title">Resumen de la sesión</h2>
+        <p>En modo Dictado, cada frase se añade como texto, incluso si dice «mostrar». Podés editar el resumen. Se guarda automáticamente y servirá para la trivia.</p>
+        <label for="session-summary">Resumen editable</label>
+        <textarea id="session-summary" rows="6" maxlength="20000" data-save-url="{{ url_for('session_summary', session_id=session.id) }}">{{ summary }}</textarea>
+        <button type="button" id="save-summary">Guardar resumen</button>
+        <p id="summary-status" role="status" aria-live="polite">Resumen recuperado. Los cambios se guardan automáticamente.</p>
+      </section>
+      <nav class="resource-buttons" aria-label="Recursos de Ciencias Naturales">
+        {% for id, title in resources %}
+        <button type="button" data-resource-id="{{ id }}" data-title="{{ title }}" data-image="{{ url_for('static', filename='resources/' ~ id ~ '.svg') }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-controls="resource-area">{{ title }}</button>
+        {% endfor %}
+      </nav>
+      <section id="resource-area" class="resource-area" aria-labelledby="resource-title" data-initial-resource="{{ initial_resource }}" data-vox-message="{{ vox_message }}">
+        <h2 id="resource-title" aria-live="polite">{{ resources[0][1] }}</h2>
+        <img id="resource-image" src="{{ url_for('static', filename='resources/' ~ resources[0][0] ~ '.svg') }}" alt="Ilustración de {{ resources[0][1] }}" width="1200" height="620">
+      </section>
+      <noscript><p>Activá JavaScript en el navegador para cambiar de recurso. No hace falta conexión a internet.</p></noscript>
+    </main>
+  </body>
+</html>

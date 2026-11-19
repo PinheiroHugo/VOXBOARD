@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Estados de la materia</title><desc id="desc">El hielo es sólido y tiene forma propia. El agua líquida toma la forma del recipiente. El vapor de agua es un gas que ocupa el espacio disponible. Las partículas se muestran como puntos.</desc>
+  <rect width="1200" height="620" rx="20" fill="#f2f6fb"/>
+  <g fill="white" stroke="#b9cadb" stroke-width="3"><rect x="25" y="25" width="365" height="560" rx="20"/><rect x="417" y="25" width="365" height="560" rx="20"/><rect x="810" y="25" width="365" height="560" rx="20"/></g>
+  <g font-family="Segoe UI, sans-serif" text-anchor="middle" fill="#203d56"><g font-size="38" font-weight="700"><text x="207" y="90">Sólido</text><text x="600" y="90">Líquido</text><text x="992" y="90">Gaseoso</text></g><g font-size="28"><text x="207" y="140">Hielo</text><text x="600" y="140">Agua</text><text x="992" y="140">Vapor de agua</text></g></g>
+  <path d="M115 230L245 200 305 255 175 290Z" fill="#b9e8f9" stroke="#3c82a5" stroke-width="4"/><path d="M115 230V365L175 420V290M175 420L305 385V255" fill="#8ad0ee" stroke="#3c82a5" stroke-width="4"/>
+  <path d="M495 205V415H705V205" fill="#e8f7ff" stroke="#3c82a5" stroke-width="5"/><path d="M500 300Q550 280 600 300T700 300V410H500Z" fill="#62b8df"/>
+  <rect x="860" y="200" width="265" height="220" rx="12" fill="#edf7ff" stroke="#3c82a5" stroke-width="4"/>
+  <g fill="#236c9d"><circle cx="890" cy="235" r="10"/><circle cx="1000" cy="285" r="10"/><circle cx="1090" cy="240" r="10"/><circle cx="925" cy="365" r="10"/><circle cx="1070" cy="385" r="10"/><circle cx="880" cy="305" r="10"/><circle cx="1030" cy="220" r="10"/></g>
+  <g fill="#24465c" font-family="Segoe UI, sans-serif" text-anchor="middle" font-size="27"><text x="207" y="490">Tiene forma propia.</text><text x="600" y="490">Toma la forma</text><text x="600" y="530">del recipiente.</text><text x="992" y="490">Ocupa el espacio</text><text x="992" y="530">disponible.</text></g>
+</svg>

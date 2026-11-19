@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · {{ 'Crear cuenta docente' if setup else 'Iniciar sesión' }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v='auth-1') }}">
+    {% include '_security_head.html' %}
+  </head>
+  <body class="auth-page">
+    <main class="auth-card">
+      <div class="auth-brand"><img class="home-logo" src="{{ url_for('static', filename='branding/voxboard-logo.png') }}" alt="VOXBOARD" width="360" height="120"></div>
+      <div class="auth-content">
+        <h1>{{ 'Crear cuenta docente' if setup else 'Iniciar sesión' }}</h1>
+        <p>{{ 'Elegí tu usuario y contraseña para acceder a tus cursos. Esta configuración se realiza una sola vez.' if setup else 'Ingresá tus credenciales para continuar con tu curso.' }}</p>
+        {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+        <form method="post">
+          {% include '_csrf.html' %}
+          <label for="username">Usuario</label>
+          <input id="username" name="username" autocomplete="username" minlength="3" maxlength="40" required value="{{ request.form.get('username', '') }}" autofocus>
+          <label for="password">Contraseña</label>
+          <input id="password" name="password" type="password" autocomplete="{{ 'new-password' if setup else 'current-password' }}" {% if setup %}minlength="8"{% endif %} maxlength="128" required>
+          {% if setup %}
+          <p class="intro">Usá al menos 8 caracteres. Guardá tu contraseña en un lugar seguro.</p>
+          <label for="password-confirmation">Repetir contraseña</label>
+          <input id="password-confirmation" name="password_confirmation" type="password" autocomplete="new-password" minlength="8" maxlength="128" required>
+          {% endif %}
+          <button type="submit">{{ 'Crear cuenta y entrar' if setup else 'Entrar' }}</button>
+        </form>
+        <p class="auth-note">Tu aula, más cerca · Acceso local para el docente</p>
+      </div>
+    </main>
+  </body>
+</html>

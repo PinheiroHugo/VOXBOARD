@@ -1,0 +1,164 @@
+/* Estilos de la portada: no modifican las pantallas de trabajo. */
+@font-face{font-family:"Vox Chalk";src:local("Segoe Print Bold"),local("SegoePrint-Bold"),local("Comic Sans MS Bold");font-weight:600 900;font-display:swap}
+@font-face{font-family:"Vox Chalk";src:local("Segoe Print"),local("SegoePrint"),local("Comic Sans MS");font-weight:400 500;font-display:swap}
+.chalkboard-home{--chalk:#f2efcb;--frame:clamp(18px,2.5vw,36px);--outside:clamp(10px,1.35vw,20px);margin:0;padding:var(--outside);min-height:100vh;min-height:100svh;background:#f8f6ef;color:var(--chalk);font-family:"Vox Chalk","Segoe Print","Comic Sans MS",cursive}
+.school-board{position:relative;width:100%;max-width:none;margin:0;padding:var(--frame);border-radius:12px;background:url("branding/wood-grain.svg") repeat,linear-gradient(100deg,#cd8c59,#dc9a66 45%,#cb8958);box-shadow:inset 2px 2px 1px #efbc8d,inset -3px -3px 1px #9b633c66,0 2px 4px #5e361321}
+.school-board::before{content:"";position:absolute;inset:calc(var(--frame)*.66);border:5px solid #e4aa7480;border-right-color:#a16c4160;border-bottom-color:#b3764770;border-radius:3px;pointer-events:none}
+.chalk-surface{position:relative;display:grid;grid-template-columns:minmax(0,56%) minmax(0,44%);min-height:calc(100svh - var(--outside)*2 - var(--frame)*2);background:radial-gradient(ellipse at 20% 30%,#ffffff03,transparent 65%),linear-gradient(105deg,#2b4d3b,#2c4c3c 65%,#2a4b3b);box-shadow:inset 3px 4px 9px #122e2040,0 0 0 2px #8a69434d}
+.chalk-content{padding:clamp(28px,4vw,64px) 0 clamp(45px,5vw,76px) clamp(24px,4.5vw,72px);min-width:0}
+.chalk-title{margin:0;font:700 clamp(34px,4.6vw,72px)/1.3 "Vox Chalk","Segoe Print",cursive;letter-spacing:.045em;color:var(--chalk);text-shadow:.5px 0 #eee9c999,-.4px .6px #eee9c988;transform:rotate(-.6deg)}
+.chalk-underline{display:block;width:min(100%,470px);height:18px;margin:12px 0 24px;overflow:visible}
+.chalk-underline path{fill:none;stroke:var(--chalk);stroke-width:3.4;stroke-linecap:round;opacity:.93}
+.chalk-menu{display:grid;gap:clamp(12px,1.3vw,22px)}
+.chalk-menu summary,.chalk-menu-link{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:20px;min-height:42px;width:100%;margin:0;padding:3px 0;border:0;border-radius:0;background:transparent;color:var(--chalk);font:600 clamp(19px,1.85vw,28px)/1.65 "Vox Chalk","Segoe Print",cursive;text-align:left;text-decoration:none;cursor:pointer;list-style:none;text-shadow:.4px .2px #f2efcb60}
+.chalk-menu summary::-webkit-details-marker{display:none}
+.chalk-menu summary:hover,.chalk-menu-link:hover{color:#fffde2;background:transparent}
+.chalk-menu summary:hover>span:last-child,.chalk-menu-link:hover>span:last-child{text-decoration:underline;text-decoration-style:wavy;text-decoration-thickness:1px;text-underline-offset:7px}
+.chalk-square{width:27px;height:28px;border:1.5px solid #e8e8cbbf;border-radius:1px 2px 0 1px;transform:rotate(.8deg)}
+.chalk-menu-item:nth-child(even) .chalk-square{transform:rotate(-1.6deg)}
+.chalk-menu-item[open] .chalk-square::after{content:"✓";display:block;font-size:24px;line-height:24px;margin-left:2px}
+.chalk-logout{margin:0}
+.home-account-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:16px}
+.home-account-actions .home-logout{margin:0}
+.home-account-actions .help-link,.home-account-actions .help-notice summary{color:var(--chalk);font:600 17px/1.5 "Vox Chalk","Segoe Print",cursive;border-color:#efedc4b3;background:transparent}
+.home-account-actions .help-notice p{color:var(--chalk);font-size:16px}
+.chalk-panel{margin:12px 0 8px 48px;padding:16px 0 16px 18px;border-left:1px solid #efedc45c;font-size:16px;line-height:1.8;overflow-wrap:anywhere}
+.chalk-panel h2{color:inherit;font-size:19px;line-height:1.7}
+.chalk-panel p{margin:6px 0}
+.chalk-panel a{color:inherit;text-underline-offset:4px}
+.chalk-panel .session-form{align-items:flex-start;gap:10px}
+.chalk-panel .session-form label{width:100%}
+.chalk-panel input,.chalk-panel select,.chalk-panel button{max-width:100%;min-width:0;padding:8px 10px;border:1px solid #efedc480;border-radius:3px;color:var(--chalk);background:#244331;font:inherit;color-scheme:dark}
+.chalk-panel button:hover{background:#365c43}
+.chalk-sessions{margin:16px 0 0;padding-left:18px}
+.chalk-sessions li{padding:6px 0}
+.chalk-students{width:100%;font-size:14px}
+.chalk-students th,.chalk-students td{padding:8px 5px;border-bottom:1px solid #eeeaca40;border-top:0;background:transparent}
+.chalkboard-home :focus-visible{outline:2px dashed var(--chalk);outline-offset:6px}
+.resting-chalk{position:absolute;bottom:calc(var(--frame) - 1px);right:calc(var(--frame) + 5vw);width:clamp(52px,7vw,102px);height:clamp(9px,1vw,14px);background:linear-gradient(#f8f2d8,#e9e2c0);border-radius:2px 1px 1px 2px;transform:rotate(-.4deg);box-shadow:0 2px 2px #182e2266,inset 0 1px #fff9e0;pointer-events:none}
+@media(min-width:1600px){.chalk-content{padding-top:75px}}
+@media(max-width:760px){.chalk-surface{grid-template-columns:minmax(0,1fr)}.chalk-content{padding-right:24px}.chalk-open-space{display:none}.chalk-title{font-size:clamp(32px,7vw,52px)}.chalk-underline{width:min(100%,380px)}}
+@media(max-width:420px){.chalk-content{padding:30px 16px 54px}.chalk-menu{gap:13px}.chalk-menu summary,.chalk-menu-link{grid-template-columns:21px minmax(0,1fr);gap:12px;font-size:18px}.chalk-square{width:21px;height:23px}.chalk-panel{margin-left:0;padding-left:10px;font-size:14px}.chalk-title{letter-spacing:.015em;font-size:31px}}
+
+/* Vox: tres zonas independientes dentro del mismo pizarrón. */
+.vox-home .chalk-surface{display:flex;flex-direction:column;padding:clamp(22px,2vw,30px);gap:12px}
+.home-heading{max-width:420px}
+.vox-home .chalk-title{font-size:clamp(32px,3.7vw,56px)}
+.vox-home .chalk-underline{margin-bottom:18px}
+.vox-home-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) minmax(0,1fr);gap:clamp(18px,2.5vw,40px);flex:1;align-items:start}
+.vox-home .chalk-menu{display:block;min-width:0;padding-top:22px}
+.vox-home .chalk-menu>details>summary{font-size:clamp(19px,1.7vw,26px);grid-template-columns:24px minmax(0,1fr);gap:12px;line-height:1.6}
+.vox-home .chalk-square{width:23px;height:24px}
+.vox-home .chalk-panel{margin-left:0;padding-left:12px;font-size:15px}
+.vox-home .home-submenu>summary{display:block;font-size:17px;padding:10px 0;line-height:1.6;text-decoration:underline;text-underline-offset:5px}
+.home-submenu-link{display:block;margin:16px 0}
+.home-submenu{margin:8px 0}
+.vox-home .chalk-students{font-family:"Segoe UI",sans-serif;font-size:13px;table-layout:fixed}
+.vox-home .chalk-students td,.vox-home .chalk-students th{overflow-wrap:anywhere}
+.vox-home .home-vox-zone{background:transparent;border:0;padding:0;margin:0;text-align:center;min-width:0;color:var(--chalk)}
+.vox-character{width:min(100%,280px);margin:0 auto;color:var(--chalk);transform-origin:50% 90%}
+.vox-character svg{display:block;width:100%;height:auto;overflow:visible}
+.vox-drawing{stroke-dasharray:100 1 160 0}
+.vox-character[data-state="idle"] .vox-drawing{transform-box:fill-box;transform-origin:50% 90%;animation:vox-idle-sway 3.2s ease-in-out infinite}
+@keyframes vox-idle-sway{0%,100%{transform:translateX(-4px) rotate(-1.6deg)}50%{transform:translateX(4px) rotate(1.6deg)}}
+.vox-turquoise{color:#52e5d6}
+.vox-eyes{transform-box:fill-box;transform-origin:center}
+.vox-head{transform-box:fill-box;transform-origin:50% 85%;transition:transform .35s ease}
+.vox-waves{opacity:0;transition:opacity .25s}
+.vox-character[data-state="listening"] .vox-head{transform:rotate(7deg)}
+.vox-character[data-state="listening"] .vox-waves{opacity:1;animation:vox-wave 1s ease-in-out infinite alternate}
+.vox-introduction{font-size:24px;line-height:1.5;margin:0 0 10px}
+.vox-talk-controls button,.vox-session-choice button,.home-logout button{border:1.5px solid #efedc4b3;background:transparent;color:var(--chalk);font:600 17px/1.5 "Vox Chalk","Segoe Print",cursive;border-radius:5px;padding:10px 16px}
+.vox-talk-controls button:hover,.vox-session-choice button:hover,.home-logout button:hover{background:#f2efcb12}
+.vox-talk-controls [hidden]{display:none!important}
+.vox-talk-controls #record-cancel{font-size:13px;padding:6px 10px;margin-top:8px;opacity:.85}
+.vox-active-session{font:13px/1.5 "Segoe UI",sans-serif;opacity:.7}
+.vox-date-label{display:block;font:14px/1.5 "Segoe UI",sans-serif;margin-top:12px}
+.vox-date{font:14px "Segoe UI",sans-serif;color:var(--chalk);color-scheme:dark;background:#254331;border:1px solid #c4cfb3;border-radius:4px;padding:8px;max-width:100%}
+.vox-session-choice input{max-width:100%;width:100%;font:inherit;padding:8px;background:#254331;color:var(--chalk);border:1px solid #b9c8ad;margin:8px 0;color-scheme:dark}
+.vox-session-choice [hidden]{display:none!important}
+.vox-resource-dialog{width:min(1200px,94vw);max-height:94svh;padding:20px;border:6px solid #cb925d;border-radius:14px;background:#f7f7ef;color:#203d32;box-shadow:0 24px 100px #0008;overflow:auto}
+.vox-resource-dialog::backdrop{background:#071b14b8;backdrop-filter:blur(3px)}
+.vox-resource-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.vox-resource-toolbar h2{font-size:clamp(23px,3vw,36px);margin:0}
+.vox-resource-toolbar button{font-size:30px;line-height:1;padding:9px 14px;flex-shrink:0}
+.vox-resource-dialog img{display:block;width:100%;height:auto;max-height:65svh;object-fit:contain}
+.vox-resource-dialog p{margin:12px 0 0;font-size:18px}
+.vox-resource-dialog .vox-dialog-help{font-size:14px;opacity:.7}
+.vox-resource-canvas{overflow:auto;max-height:65svh;border-radius:8px}
+@media(max-width:700px){.vox-resource-dialog{padding:12px}.vox-resource-canvas img{min-width:760px;max-height:none}}
+.home-vox-zone #voice-status{font-family:"Segoe UI",sans-serif;font-size:15px;line-height:1.7;max-width:330px;margin:12px auto 0}
+.vox-transcript{font-family:"Segoe UI",sans-serif;font-size:16px;line-height:1.5;overflow-wrap:anywhere;opacity:.8}
+.vox-transcript:empty{display:none}
+.vox-session-choice{font-family:"Segoe UI",sans-serif;font-size:15px;border:1px dashed #f2efcb80;border-radius:8px;padding:16px;text-align:left}
+.vox-session-choice select{width:100%;min-width:0;background:#254331;color:var(--chalk);margin:12px 0}
+.vox-session-choice button{font-family:"Segoe UI",sans-serif;font-size:14px;margin:5px}
+.home-logout{align-self:flex-start;margin-top:16px}
+.home-logout button{font-size:14px;opacity:.8}
+@keyframes vox-wave{from{opacity:.4}to{opacity:1}}
+@media(max-width:980px){
+  .vox-home-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"course tracking" "vox vox";gap:16px}
+  .home-course-zone{grid-area:course}.home-tracking-zone{grid-area:tracking}.home-vox-zone{grid-area:vox}
+  .vox-home .chalk-menu{padding-top:0}.vox-character{width:255px}.home-vox-zone #voice-status{max-width:420px}
+}
+@media(max-width:500px){
+  .vox-home .chalk-surface{padding:22px 14px;gap:4px}
+  .vox-home .chalk-menu>details>summary{font-size:16px;grid-template-columns:17px minmax(0,1fr);gap:8px}
+  .vox-home .chalk-square{width:17px;height:20px}.vox-home .chalk-panel{padding-left:7px;font-size:13px}
+  .vox-home .home-submenu>summary{font-size:14px}.vox-home .session-form{font-family:"Segoe UI",sans-serif}
+  .vox-home .chalk-students{font-size:11px}.vox-home .chalk-students th,.vox-home .chalk-students td{padding:5px 2px}
+  .vox-character{width:220px}.vox-introduction{font-size:21px;margin-bottom:10px}
+  .home-heading .chalk-underline{margin-top:6px;margin-bottom:12px}
+  .home-vox-zone #voice-status{font-size:14px;margin-top:12px}
+}
+@media(prefers-reduced-motion:reduce){.vox-character,.vox-eyes,.vox-waves{animation:none!important}.vox-head{transition:none}}
+
+/* Gestos breves: vox-motion.js deja pausas y cancela la pose al escuchar. */
+.vox-brows{stroke-width:2;opacity:.45}
+.vox-brow-left,.vox-eye-right,.vox-smile,.vox-doubt-mouth{transform-box:fill-box;transform-origin:center}
+.vox-doubt-mouth,.vox-face-marks,.vox-wave-marks{opacity:0}
+.vox-joy-mouth,.vox-greeting-mouth,.vox-surprise-mouth{opacity:0;transform-box:fill-box;transform-origin:center;transition:opacity .12s ease}
+.vox-face-marks,.vox-wave-marks{stroke-width:2.5}
+.vox-arm-right{transform-box:fill-box;transform-origin:0 0}
+.vox-hand-right{transform-box:fill-box;transform-origin:50% 0}
+.vox-character[data-gesture="blink"] .vox-eyes{animation:vox-short-blink var(--vox-gesture-duration,230ms) ease-in-out both}
+.vox-character[data-gesture="look-left"] .vox-eyes{animation:vox-look-left var(--vox-gesture-duration,700ms) ease-in-out both}
+.vox-character[data-gesture="look-right"] .vox-eyes{animation:vox-look-right var(--vox-gesture-duration,700ms) ease-in-out both}
+.vox-character[data-gesture="tilt"] .vox-head{animation:vox-idle-tilt var(--vox-gesture-duration,850ms) ease-in-out both}
+.vox-character[data-gesture="brow"] .vox-brow-left{animation:vox-raise-brow var(--vox-gesture-duration,650ms) ease-in-out both}
+.vox-character[data-gesture="smile"] .vox-smile,.vox-character[data-gesture="surprise"] .vox-smile,.vox-character[data-gesture="wave"] .vox-smile,.vox-character[data-state="recognized"] .vox-smile{opacity:0}
+.vox-character[data-gesture="smile"] .vox-joy-mouth{opacity:1;animation:vox-happy-mouth var(--vox-gesture-duration,800ms) ease-in-out both}
+.vox-character[data-gesture="surprise"] .vox-surprise-mouth{opacity:1;animation:vox-surprised-mouth var(--vox-gesture-duration,700ms) ease-in-out both}
+.vox-character[data-gesture="surprise"] .vox-eyes{transform:translateY(-2px) scaleY(1.15)}
+.vox-character[data-gesture="surprise"] .vox-brows{opacity:.9;transform:translateY(-4px)}
+.vox-character[data-gesture="wave"] .vox-greeting-mouth{opacity:1;animation:vox-greeting-smile 340ms ease-in-out 520ms var(--vox-wave-count,3)}
+.vox-character[data-gesture="brow"] .vox-face-marks,.vox-character[data-gesture="smile"] .vox-face-marks{animation:vox-chalk-marks var(--vox-gesture-duration,800ms) ease-in-out both}
+.vox-character[data-gesture="wave"] .vox-arm-right{animation:vox-lift-arm var(--vox-wave-duration,2220ms) ease-in-out both}
+.vox-character[data-gesture="wave"] .vox-hand-right{animation:vox-hand-wave 340ms ease-in-out 520ms var(--vox-wave-count,3)}
+.vox-character[data-gesture="wave"] .vox-wave-marks{animation:vox-wave-marks var(--vox-wave-duration,2220ms) ease-in-out both}
+.vox-character[data-state="preparing"] .vox-brows,.vox-character[data-state="listening"] .vox-brows{opacity:.85}
+.vox-character[data-state="listening"] .vox-eyes{transform:translateY(-2px) scaleY(1.1)}
+.vox-character[data-state="listening"] .vox-smile{transform:scale(.85,.75)}
+.vox-character[data-state="recognized"] .vox-head{animation:vox-nod 1.4s ease-in-out both}
+.vox-character[data-state="recognized"] .vox-joy-mouth{opacity:1;animation:vox-happy-mouth 1.3s ease-in-out both}
+.vox-character[data-state="recognized"] .vox-face-marks{animation:vox-chalk-marks 1.5s ease-in-out both}
+.vox-character[data-state="uncertain"] .vox-head{transform:rotate(-6deg)}
+.vox-character[data-state="uncertain"] .vox-brow-left{transform:translateY(-6px) rotate(-10deg)}
+.vox-character[data-state="uncertain"] .vox-smile{opacity:0}
+.vox-character[data-state="uncertain"] .vox-doubt-mouth{opacity:1}
+.vox-character[data-state="uncertain"] .vox-face-marks{animation:vox-chalk-marks 1.8s ease-in-out both}
+@keyframes vox-short-blink{0%,100%{transform:scaleY(1)}45%,65%{transform:scaleY(.08)}}
+@keyframes vox-look-left{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(-7px)}}
+@keyframes vox-look-right{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(7px)}}
+@keyframes vox-idle-tilt{0%,100%{transform:rotate(0)}35%,65%{transform:rotate(-6deg)}}
+@keyframes vox-raise-brow{0%,100%{transform:translateY(0) rotate(0)}30%,70%{transform:translateY(-7px) rotate(-9deg)}}
+@keyframes vox-big-smile{0%,100%{transform:scale(1)}30%,70%{transform:scale(1.2,1.12)}}
+@keyframes vox-happy-mouth{0%,100%{transform:scale(.88,.82)}30%,70%{transform:scale(1.05,1.08)}}
+@keyframes vox-surprised-mouth{0%,100%{transform:scale(.8,.7)}30%,65%{transform:scale(1.05,1.15)}}
+@keyframes vox-greeting-smile{0%,100%{transform:scale(1,.88)}50%{transform:scale(1.05,1.12)}}
+@keyframes vox-chalk-marks{0%,100%{opacity:0}30%,65%{opacity:.8}}
+@keyframes vox-lift-arm{0%,100%{transform:rotate(0)}22%,83%{transform:rotate(-105deg)}}
+@keyframes vox-hand-wave{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(22deg)}}
+@keyframes vox-wave-marks{0%,22%,95%,100%{opacity:0}30%,45%,60%,78%{opacity:.9}38%,53%,68%{opacity:.4}}
+@keyframes vox-nod{0%,100%{transform:rotate(0) translateY(0)}25%,65%{transform:rotate(3deg) translateY(5px)}45%,85%{transform:rotate(-1deg) translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.vox-character *{animation:none!important;transition:none!important}.vox-character[data-state="listening"] .vox-waves{opacity:1}}

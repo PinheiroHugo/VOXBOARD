@@ -1,0 +1,9 @@
+<!doctype html><html lang="es"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VOXBOARD · Gestiones escolares</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">{% include '_security_head.html' %}
+</head><body>{% include '_account_menu.html' %}<main>
+  <a href="{{ url_for('index') }}">← Volver al pizarrón</a><h1>Gestiones escolares</h1>
+  <ul>{% for course in courses %}<li><a href="{{ url_for('annual.course', course_id=course.id) }}">{{ course.school_year }} · {{ course.name }}</a>{% if active and active.id == course.id %} · Activa{% else %} · Historial{% endif %}</li>{% else %}<li>Todavía no configuraste un curso.</li>{% endfor %}</ul>
+  <a class="button-link" href="{{ url_for('annual.configure') }}">Iniciar nueva gestión</a>
+</main></body></html>

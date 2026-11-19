@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo del agua</title><desc id="desc">El Sol calienta el agua. El agua se evapora, se condensa en nubes, cae como precipitación y se acumula en ríos y lagos.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4 0 8" fill="#196788"/></marker></defs>
+  <rect width="1200" height="620" rx="20" fill="#eaf7ff"/>
+  <circle cx="120" cy="110" r="60" fill="#ffc94b"/>
+  <path d="M680 470L920 190 1150 470" fill="#91ada5"/><path d="M855 267L920 190 985 269 950 258 920 275 890 254" fill="white"/>
+  <path d="M0 465Q300 425 590 470T1200 460V620H0" fill="#78b77b"/>
+  <path d="M920 400Q650 410 640 485T260 545" fill="none" stroke="#399bd0" stroke-width="30"/>
+  <ellipse cx="270" cy="520" rx="230" ry="55" fill="#399bd0"/>
+  <g fill="white" stroke="#b2cfdf" stroke-width="3"><path d="M440 180C390 150 420 100 465 110 470 50 555 50 570 100 635 75 680 145 630 180Z"/><path d="M755 190C700 160 735 110 775 120 790 65 860 70 880 115 940 100 980 170 925 190Z"/></g>
+  <g fill="none" stroke="#196788" stroke-width="7" marker-end="url(#arrow)"><path d="M270 420Q240 280 380 210"/><path d="M580 225H745"/><path d="M860 230V350"/><path d="M640 520H510"/></g>
+  <g stroke="#2987c3" stroke-width="6"><path d="M760 255l-12 30M810 285l-12 30M930 255l-12 30"/></g>
+  <g fill="#163d52" font-family="Segoe UI, sans-serif" font-size="29" font-weight="600"><text x="40" y="320">1. Evaporación</text><text x="405" y="40">2. Condensación</text><text x="925" y="340">3. Lluvia</text><text x="925" y="377" font-size="23">(precipitación)</text><text x="55" y="600">4. Acumulación</text></g>
+</svg>

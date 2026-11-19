@@ -1,0 +1,31 @@
+<!doctype html><html lang="es"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VOXBOARD · Configurar gestión escolar</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  {% include '_security_head.html' %}
+</head><body>{% include '_account_menu.html' %}<main>
+  <a href="{{ url_for('index') }}">← Volver al pizarrón</a>
+  <h1>{{ 'Configurar mi curso' if course else 'Nueva gestión escolar' }}</h1>
+  <p>{{ 'Los estudiantes y sus registros se conservan al editar sus datos.' if course else 'Configurá el curso y su lista de estudiantes. Será el único curso activo de esta gestión; los anteriores seguirán disponibles para consulta.' }}</p>
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" class="annual-form">
+    {% include '_csrf.html' %}
+    <label for="school-year">Gestión escolar</label>
+    <input id="school-year" name="school_year" type="number" min="2000" max="2200" value="{{ request.form.get('school_year', course.school_year if course else default_year) }}" {% if course %}readonly{% endif %} required>
+    <label for="course-name">Nombre del curso</label>
+    <input id="course-name" name="name" maxlength="120" value="{{ request.form.get('name', course.name if course else '') }}" placeholder="Tercero de primaria · A" required>
+    <label for="teacher-name">Docente</label>
+    <input id="teacher-name" name="teacher" maxlength="120" value="{{ request.form.get('teacher', course.teacher if course else '') }}" required>
+    {% if students %}<h2>Estudiantes actuales</h2>
+    <p>Los identificadores se conservan para mantener el historial.</p>
+    {% for student in students %}<fieldset>
+      <legend>Estudiante {{ student.id }}</legend>
+      <label for="first-{{ student.id }}">Nombres</label><input id="first-{{ student.id }}" name="first_{{ student.id }}" maxlength="80" value="{{ request.form.get('first_' ~ student.id, student.first_name) }}" required>
+      <label for="last-{{ student.id }}">Apellidos</label><input id="last-{{ student.id }}" name="last_{{ student.id }}" maxlength="80" value="{{ request.form.get('last_' ~ student.id, student.last_name) }}" required>
+    </fieldset>{% endfor %}{% endif %}
+    <label for="new-students">{{ 'Agregar estudiantes' if course else 'Lista de estudiantes' }}</label>
+    <p>Un estudiante por línea, separando nombres y apellidos con punto y coma. Ejemplo: <strong>Ana;García</strong>.</p>
+    <textarea id="new-students" name="new_students" rows="8" placeholder="Ana;García&#10;Mateo;López" {% if not course %}required{% endif %}>{{ request.form.get('new_students', '') }}</textarea>
+    <button type="submit">{{ 'Guardar configuración' if course else 'Crear gestión y activar curso' }}</button>
+  </form>
+</main></body></html>

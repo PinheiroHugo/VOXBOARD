@@ -1,0 +1,10 @@
+{% if current_teacher %}
+<div class="account-menu">
+  <span>Docente: {{ current_teacher.username }}</span>
+  {% include '_help.html' %}
+  <form method="post" action="{{ url_for('auth.logout') }}">
+    {% include '_csrf.html' %}
+    <button type="submit">Cerrar sesión</button>
+  </form>
+</div>
+{% endif %}

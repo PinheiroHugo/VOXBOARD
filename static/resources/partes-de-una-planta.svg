@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Partes de una planta</title><desc id="desc">Planta con flor, fruto, hojas, tallo y raíces bajo la tierra.</desc>
+  <rect width="1200" height="620" rx="20" fill="#f0f8ed"/>
+  <path d="M0 450H1200V620H0" fill="#e5c7a1"/><path d="M0 450H1200" stroke="#89a86f" stroke-width="8"/>
+  <g stroke="#388452" fill="none" stroke-width="15" stroke-linecap="round"><path d="M580 465V170M580 310L680 245M580 360L460 300"/></g>
+  <g fill="#5daa59" stroke="#388452" stroke-width="3"><path d="M580 340Q420 350 400 235 540 235 580 340"/><path d="M580 270Q680 160 760 200 740 300 580 270"/></g>
+  <g stroke="#92633e" fill="none" stroke-width="10" stroke-linecap="round"><path d="M580 460V555M580 480L510 520 475 570M580 500L650 535 680 575M580 530L540 580"/></g>
+  <g fill="#ed9cb9"><ellipse cx="580" cy="90" rx="28" ry="48"/><ellipse cx="580" cy="180" rx="28" ry="48"/><ellipse cx="535" cy="135" rx="48" ry="28"/><ellipse cx="625" cy="135" rx="48" ry="28"/></g><circle cx="580" cy="135" r="30" fill="#f5c841"/>
+  <path d="M680 245Q665 275 690 300" stroke="#388452" stroke-width="7" fill="none"/><circle cx="690" cy="320" r="33" fill="#d85b45"/>
+  <g stroke="#385b43" stroke-width="3" fill="none"><path d="M630 115H855M735 320H900M450 290H260M565 390H285M640 545H850"/></g>
+  <g fill="#244632" font-family="Segoe UI, sans-serif" font-size="36" font-weight="600"><text x="875" y="125">Flor</text><text x="920" y="332">Fruto</text><text x="135" y="300">Hoja</text><text x="140" y="402">Tallo</text><text x="870" y="557">Raíces</text></g>
+</svg>

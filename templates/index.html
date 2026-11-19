@@ -1,0 +1,136 @@
+﻿<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VOXBOARD · Mi curso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home-chalkboard.css', v='vox-direct-1') }}">
+    {% include '_security_head.html' %}
+    <script src="{{ url_for('static', filename='resource-commands.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='audio-wav.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='vox-motion.js', v='4') }}" defer></script>
+    <script src="{{ url_for('static', filename='home-vox.js', v='annual-1') }}" defer></script>
+    <script src="{{ url_for('static', filename='voice.js', v='remote-1') }}" defer></script>
+  </head>
+  <body class="chalkboard-home vox-home">
+    <main class="school-board" aria-labelledby="home-title">
+      <div class="chalk-surface">
+        <div class="home-heading">
+          <h1 id="home-title" class="chalk-title">VOXBOARD</h1>
+          <svg class="chalk-underline" viewBox="0 0 460 18" aria-hidden="true"><path d="M4 7 C76 13 125 5 192 8 S315 15 356 10 S412 14 456 9"/></svg>
+        </div>
+        <div class="vox-home-layout">
+          <nav class="chalk-menu home-course-zone" aria-label="Mi curso">
+            <a id="course-menu" class="chalk-menu-link" href="{{ url_for('annual.active') }}"><span class="chalk-square" aria-hidden="true"></span><span>Mi curso</span></a>
+            <div class="chalk-panel">
+              {% if course %}<p>{{ course.name }}<br>{{ course.school_year }}</p>{% endif %}
+              <a class="home-submenu-link" href="{{ url_for('annual.course', course_id=course.id) ~ '#estudiantes' if course else url_for('annual.configure') }}">Estudiantes del curso</a>
+              <a class="home-submenu-link" href="{{ url_for('annual.daily', seccion='asistencia') }}">Asistencia</a>
+              <a class="home-submenu-link" href="{{ url_for('annual.daily', seccion='calificaciones') }}">Calificaciones</a>
+              <a class="home-submenu-link" href="{{ url_for('annual.daily', seccion='pizarra') }}">Pizarra y resumen</a>
+              <a class="home-submenu-link" href="{{ url_for('annual.daily', seccion='trivia') }}">Trivia del día</a>
+              <a class="home-submenu-link" href="{{ url_for('annual.history') }}">Gestiones anteriores</a>
+              <a class="home-submenu-link" href="{{ url_for('annual.configure') }}">Nueva gestión</a>
+            </div>
+          </nav>
+          <section class="voice-panel home-vox-zone" aria-label="Hablar con Vox" data-auto-stop="true" data-status-url="{{ url_for('voice.status') }}" data-transcribe-url="{{ url_for('voice.transcribe') }}" data-worklet-url="{{ url_for('static', filename='recorder-worklet.js', v='pause-1') }}" data-preview-url="{{ url_for('home_school_preview') }}" data-confirm-url="{{ url_for('home_school_confirm') }}" data-active-course="{{ course.id if course else '' }}" data-course-url="{{ url_for('annual.active') }}" data-daily-url="{{ url_for('annual.daily') }}" data-performance-url="{{ url_for('performance.overview', course_id=course.id) if course else url_for('annual.configure') }}">
+            <div id="vox-character" class="vox-character" data-state="idle">
+              <svg viewBox="-24 -12 368 384" role="img" aria-labelledby="vox-title">
+                <title id="vox-title">Vox, un robot sonriente dibujado con tiza</title>
+                <g class="vox-drawing" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                  <g class="vox-head">
+                    <g class="vox-turquoise"><path d="M160 73V47"/><rect x="151" y="17" width="18" height="26" rx="9"/><path d="M146 30v5a14 14 0 0 0 28 0v-5M154 50h12"/></g>
+                    <path d="M87 77Q154 68 224 78Q240 80 242 98L240 181Q237 199 217 201L101 203Q80 201 78 181L77 101Q77 83 87 77Z"/>
+                    <path d="M87 91Q160 80 229 91M88 192q61 8 139-2" stroke-width="1.3" opacity=".4"/>
+                    <path d="M78 116h-9q-9 0-9 12v22q0 12 17 12M241 116h9q9 0 9 12v22q0 12-17 12"/>
+                    <g class="vox-brows"><path class="vox-brow-left" d="M109 109q9-5 19-1"/><path d="M188 108q10-4 20 1"/></g>
+                    <g class="vox-eyes"><path d="M111 128q8-14 16 0" stroke-width="7"/><path class="vox-eye-right" d="M190 128q8-14 16 0" stroke-width="7"/></g>
+                    <path class="vox-smile" d="M137 160q23 24 47-1"/>
+                    <g class="vox-joy-mouth"><path d="M135 158q25 10 51 0q-4 27-26 27t-25-27Z"/><path d="M149 176q11-5 22 0" stroke-width="2"/></g>
+                    <g class="vox-greeting-mouth"><path d="M138 161q22 7 44-2q-2 22-22 22t-22-20Z"/><path d="M131 158l-2 6m60-7 3 5" stroke-width="2"/></g>
+                    <ellipse class="vox-surprise-mouth" cx="160" cy="171" rx="9" ry="12"/>
+                    <path class="vox-doubt-mouth" d="M146 172q13-7 27-2"/>
+                    <path d="M102 155h9m98 0h9" stroke-width="2" opacity=".55"/>
+                    <g class="vox-face-marks"><path d="M249 90l10-7m-5 21 13-1"/></g>
+                  </g>
+                  <path d="M143 204v19m34-19v19M98 233q61-23 123 0l15 94H82Z"/>
+                  <g class="vox-arm-left"><path d="M99 234q-28-2-35 24l-8 43M55 301q-13 6-9 22m10-21q12 5 10 20"/></g>
+                  <g class="vox-arm-right">
+                    <path d="M222 234q29 0 36 24l7 43"/>
+                    <g class="vox-hand-right"><path d="M266 301q13 6 9 22m-10-21q-12 5-10 20"/></g>
+                    <g class="vox-wave-marks"><path d="M283 294l9-6m-7 17 11-1"/></g>
+                  </g>
+                  <rect x="121" y="247" width="78" height="49" rx="10"/>
+                  <path d="M139 270h8m10 0h8m10 0h8M101 315h118" opacity=".7"/>
+                  <g class="vox-waves vox-turquoise"><path d="M33 121q-15 20 0 41M20 108q-26 34 0 67M287 121q15 20 0 41M300 108q26 34 0 67"/></g>
+                </g>
+              </svg>
+            </div>
+            <p class="vox-introduction">Hola, soy Vox</p>
+            <div class="vox-talk-controls">
+              <button id="record-start" type="button" disabled>Hablar con Vox</button>
+              <button id="record-stop" type="button" disabled hidden>Terminar de hablar</button>
+              <button id="record-cancel" type="button" hidden>Cancelar grabación</button>
+            </div>
+            <p id="voice-status" role="status" aria-live="polite">Preparando a Vox…</p>
+            <p id="voice-text" class="vox-transcript" aria-live="polite"></p>
+            <p id="vox-active-course" class="vox-active-session">{% if course %}Curso activo: {{ course.name }} · Gestión {{ course.school_year }}{% else %}Todavía no hay un curso anual configurado. Podés consultar los recursos con Vox.{% endif %}</p>
+            <label class="vox-date-label" for="vox-date">Fecha para asistencia y notas</label>
+            <input id="vox-date" class="vox-date" type="date" value="{{ today }}">
+            <div id="vox-school-fields" class="vox-session-choice" hidden>
+              <p>Completá estos datos para continuar con la misma frase.</p>
+              <form id="vox-complete-command">
+                <div id="vox-course-field"><p>Primero configurá tu curso anual y su lista de estudiantes.</p><a href="{{ url_for('annual.configure') }}">Configurar curso y estudiantes</a></div>
+                <div id="vox-student-field"><label for="vox-student">Estudiante</label>
+                  <select id="vox-student"><option value="">Seleccioná un estudiante</option>{% for item in students %}<option value="{{ item.id }}">{{ item.id }} · {{ item.first_name }} {{ item.last_name }}</option>{% endfor %}</select>
+                </div>
+                <div id="vox-grade-field"><label for="vox-grade-value">Nota (0 a 100)</label><input id="vox-grade-value" type="number" min="0" max="100" step="1"></div>
+                <div id="vox-attendance-field"><label for="vox-attendance-value">Asistencia</label><select id="vox-attendance-value"><option value="">Elegí el estado</option><option value="presente">Presente</option><option value="ausente">Ausente</option></select></div>
+                <button type="submit">Continuar</button>
+              </form>
+              <button type="button" id="vox-cancel-pending">Cancelar comando</button>
+            </div>
+            <div id="vox-school-preview" class="vox-session-choice" hidden>
+              <p id="vox-preview-description" role="status" aria-live="polite"></p><p>Podés corregir la fecha en el campo de arriba antes de confirmar.</p>
+              <button type="button" id="vox-confirm-command">Confirmar</button>
+              <button type="button" id="vox-cancel-confirmation">Cancelar</button>
+            </div>
+            <script id="vox-resources" type="application/json" data-root="{{ url_for('static', filename='resources/') }}">{{ resources | tojson }}</script>
+          </section>
+          <nav class="chalk-menu home-tracking-zone" aria-label="Seguimiento del curso">
+            <details class="chalk-menu-item" id="tracking-menu">
+              <summary><span class="chalk-square" aria-hidden="true"></span><span>Seguimiento del curso</span></summary>
+              <div class="chalk-panel">
+                <a class="home-submenu-link" href="{{ url_for('performance.overview', course_id=course.id) if course else url_for('annual.configure') }}">Rendimiento del curso</a>
+                <a class="home-submenu-link" href="{{ url_for('performance.overview', course_id=course.id) if course else url_for('annual.configure') }}#cuadro-de-honor">Cuadro de honor</a>
+                <details class="home-submenu" id="home-comments"><summary>Comentarios de boletín</summary>
+                  {% if course %}
+                  <form method="get" action="{{ url_for('comments.editor', course_id=course.id) if course else url_for('annual.configure') }}" class="session-form">
+                    <label for="comment-student">Estudiante</label>
+                    <select id="comment-student" name="student_id" required>{% for student in students %}<option value="{{ student.id }}">{{ student.first_name }} {{ student.last_name }}</option>{% endfor %}</select>
+                    <button type="submit">Ver datos y comentario</button>
+                  </form>
+                  {% else %}<a href="{{ url_for('annual.configure') }}">Configurar curso y estudiantes</a>{% endif %}
+                </details>
+              </div>
+            </details>
+          </nav>
+        </div>
+        <div class="home-account-actions">
+        {% include '_help.html' %}
+        <form method="post" action="{{ url_for('auth.logout') }}" class="chalk-logout home-logout">
+          {% include '_csrf.html' %}<button type="submit">Cerrar sesión</button>
+        </form>
+        </div>
+      </div>
+      <span class="resting-chalk" aria-hidden="true"></span>
+    </main>
+    <dialog id="vox-resource-dialog" class="vox-resource-dialog" aria-labelledby="vox-resource-title">
+      <div class="vox-resource-toolbar"><h2 id="vox-resource-title"></h2><button id="vox-close-resource" type="button" aria-label="Cerrar recurso">×</button></div>
+      <div class="vox-resource-canvas" tabindex="0" aria-label="Ilustración del recurso"><img id="vox-resource-image" alt="" width="1200" height="620"></div>
+      <p id="vox-resource-message" role="status" aria-live="polite"></p>
+      <p class="vox-dialog-help">Podés cerrar con la X o la tecla Escape.</p>
+    </dialog>
+  </body>
+</html>
