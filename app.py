@@ -123,7 +123,8 @@ def create_app(config=None):
     app = Flask(__name__)
     app.config['DATABASE'] = DATABASE
     app.config['SECRET_KEY'] = None
-    app.config['VOXBOARD_HELP_URL'] = os.environ.get('VOXBOARD_HELP_URL', '')
+    app.config['VOXBOARD_HELP_URL'] = os.environ.get(
+        'VOXBOARD_HELP_URL', 'https://voxboard-web.vercel.app/novedades.html')
     app.config['OLLAMA_MODEL'] = os.environ.get('OLLAMA_MODEL', 'qwen2.5:3b')
     app.config['OLLAMA_URL'] = os.environ.get('OLLAMA_URL', 'http://127.0.0.1:11434')
     app.config['OLLAMA_TIMEOUT'] = float(os.environ.get('OLLAMA_TIMEOUT', '120'))

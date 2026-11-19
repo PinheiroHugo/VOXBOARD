@@ -128,9 +128,9 @@ $env:OLLAMA_TIMEOUT = '120'
 | `OLLAMA_MODEL` | `qwen2.5:3b` | Modelo compartido por trivia y boletín. |
 | `OLLAMA_URL` | `http://127.0.0.1:11434` | Solo HTTP loopback: localhost, 127.0.0.1 o ::1. |
 | `OLLAMA_TIMEOUT` | `120` | Límite en segundos; debe ser numérico. |
-| `VOXBOARD_HELP_URL` | Vacía | URL pública HTTP/HTTPS real de recursos/soporte de VOXBOARD-WEB. |
+| `VOXBOARD_HELP_URL` | `https://voxboard-web.vercel.app/novedades.html` | URL pública HTTP/HTTPS de novedades y recursos de VOXBOARD-WEB. |
 
-Cuando se publique el portal, asignar su dirección completa a `$env:VOXBOARD_HELP_URL`. **Ayuda** abrirá esa sección en otra pestaña. Sin URL válida, muestra «El centro de ayuda estará disponible próximamente»; no hay un destino ficticio.
+**Ayuda** abre directamente [Novedades y recursos](https://voxboard-web.vercel.app/novedades.html) en otra pestaña. Se puede cambiar su destino asignando otra dirección completa a `$env:VOXBOARD_HELP_URL`. Si se configura explícitamente una URL vacía o inválida, muestra «El centro de ayuda estará disponible próximamente».
 
 Para integración/pruebas, `create_app(config)` acepta `DATABASE`, `VOSK_MODEL_PATH` y `SECRET_KEY`; estas claves no se leen automáticamente del entorno. Normalmente la clave se genera aleatoriamente en `.secret_key`, junto a cada base, y se conserva al reiniciar. No publicarla.
 
